@@ -14,7 +14,12 @@
 2014.06.13		Vincent Han		표준프레임워크 3.0 적용 (간소화 설정 사용)
 2017.07.10      장동한            실행행환경 v3.7 적용[보안기능 추가(sniff, xFrameOptions, xssProtection csrf)]
 -->
-
+	<security:http pattern="/index.do" security="none"/>
+	<security:http pattern="/head.do" security="none"/>
+	<security:http pattern="/content.do" security="none"/>
+	<security:http pattern="/bottom.do" security="none"/>
+	<security:http pattern="/cmm/**" security="none"/>
+	<security:http pattern="/sign/**" security="none"/>
 	<security:http pattern="/css/**" security="none"/>
 	<security:http pattern="/html/**" security="none"/>
     <security:http pattern="/images/**" security="none"/>
@@ -23,10 +28,10 @@
  	<security:http pattern="\A/WEB-INF/jsp/.*\Z" request-matcher="regex" security="none"/>
 
     <egov-security:config id="securityConfig"
-		loginUrl="/uat/uia/egovLoginUsr.do"
-		logoutSuccessUrl="/EgovContent.do"
-		loginFailureUrl="/uat/uia/egovLoginUsr.do?login_error=1"
-		accessDeniedUrl="/sec/ram/accessDenied.do"
+		loginUrl="/sign/login.do"
+		logoutSuccessUrl="/content.do"
+		loginFailureUrl="/sign/login.do?login_error=1"
+		accessDeniedUrl=""
 
 		dataSource="egov.dataSource"
 		jdbcUsersByUsernameQuery="SELECT USER_ID, ESNTL_ID AS PASSWORD, 1 ENABLED, USER_NM, USER_ZIP,
@@ -43,9 +48,9 @@
 		hashBase64="false"
 
 		concurrentMaxSessons="1"
-		concurrentExpiredUrl="/EgovContent.do"
+		concurrentExpiredUrl="/content.do"
 
-		defaultTargetUrl="/EgovContent.do"
+		defaultTargetUrl="/content.do"
 		
 		sniff="true"
 		xframeOptions="SAMEORIGIN" 

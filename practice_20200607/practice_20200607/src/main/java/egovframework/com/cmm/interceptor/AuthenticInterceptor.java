@@ -30,6 +30,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 public class AuthenticInterceptor extends HandlerInterceptorAdapter {
 
+	
+	
+	
 	/**
 	 * 세션에 계정정보(LoginVO)가 있는지 여부로 인증 여부를 체크한다.
 	 * 계정정보(LoginVO)가 없다면, 로그인 페이지로 이동한다.
@@ -44,7 +47,7 @@ public class AuthenticInterceptor extends HandlerInterceptorAdapter {
 		if(loginVO != null){
 			return true;
 		} else if(!isPermittedURL){
-				ModelAndView modelAndView = new ModelAndView("redirect:/uat/uia/egovLoginUsr.do");
+				ModelAndView modelAndView = new ModelAndView("redirect:/content.do");
 				throw new ModelAndViewDefiningException(modelAndView);
 			}else{
 				return true;

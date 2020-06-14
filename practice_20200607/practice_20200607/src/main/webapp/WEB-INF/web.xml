@@ -130,7 +130,7 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-    <servlet>
+    <!-- <servlet>
         <servlet-name>action</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
@@ -142,8 +142,21 @@
     <servlet-mapping>
         <servlet-name>action</servlet-name>
         <url-pattern>*.do</url-pattern>
+    </servlet-mapping> -->
+	<servlet>
+        <servlet-name>action2</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/config/egovframework/pra/egov-com-*.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>action2</servlet-name>
+        <url-pattern>*.do</url-pattern>
     </servlet-mapping>
-
+	
     <!-- 1. 스프링 시큐리티 설정-->
     <!--
     <filter>
@@ -271,13 +284,21 @@
       <location>/code500.jsp</location>
     </error-page>
 
-	<filter>
+	<!-- <filter>
         <filter-name>LoginPolicyFilter</filter-name>
         <filter-class>egovframework.com.uat.uap.filter.EgovLoginPolicyFilter</filter-class>
     </filter>
 	<filter-mapping>
         <filter-name>LoginPolicyFilter</filter-name>
         <url-pattern>/uat/uia/actionLogin.do</url-pattern>
+    </filter-mapping> -->
+    <filter>
+        <filter-name>LoginPolicyFilter</filter-name>
+        <filter-class>egovframework.com.uat.uap.filter.EgovLoginPolicyFilter</filter-class>
+    </filter>
+	<filter-mapping>
+        <filter-name>LoginPolicyFilter</filter-name>
+        <url-pattern>/sign/actionLogin.do</url-pattern>
     </filter-mapping>
 	<filter>
         <filter-name>springSecurityFilterChain</filter-name>
@@ -287,7 +308,7 @@
         <filter-name>EgovSpringSecurityLogoutFilter</filter-name>
         <filter-class>egovframework.com.sec.security.filter.EgovSpringSecurityLogoutFilter</filter-class>
     </filter>
-	<filter>
+	<!-- <filter>
         <filter-name>EgovSpringSecurityLoginFilter</filter-name>
         <filter-class>egovframework.com.sec.security.filter.EgovSpringSecurityLoginFilter</filter-class>
         <init-param>
@@ -300,6 +321,20 @@
             <param-name>loginProcessURL</param-name>
             <param-value>/uat/uia/actionLogin</param-value>
         </init-param>
+    </filter> -->
+    <filter>
+        <filter-name>EgovSpringSecurityLoginFilter</filter-name>
+        <filter-class>egovframework.com.sec.security.filter.EgovSpringSecurityLoginFilter</filter-class>
+        <init-param>
+            <description>로그인 실패시 반활 될 URL설정</description>
+            <param-name>loginURL</param-name>
+            <param-value>/sign/login.do</param-value>
+        </init-param>
+        <init-param>
+            <description>로그인 처리 URL설정</description>
+            <param-name>loginProcessURL</param-name>
+            <param-value>/sign/actionLogin</param-value>
+        </init-param>
     </filter>
 	<filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
@@ -307,7 +342,7 @@
     </filter-mapping>
 	<filter-mapping>
         <filter-name>EgovSpringSecurityLogoutFilter</filter-name>
-        <url-pattern>/uat/uia/actionLogout.do</url-pattern>
+        <url-pattern>/sign/actionLogout.do</url-pattern>
     </filter-mapping>
 	<filter-mapping>
         <filter-name>EgovSpringSecurityLoginFilter</filter-name>

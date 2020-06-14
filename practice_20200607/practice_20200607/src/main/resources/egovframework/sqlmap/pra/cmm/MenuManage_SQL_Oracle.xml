@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="MenuManage"><resultMap id="headMenu" class="egovframework.pra.cmm.service.HeadMenuVO"><result column="MENU_NO" property="menuNo"/>
+<result column="MENU_NM" property="menuNm"/>
+<result column="CHK_URL" property="chkURL"/>
+<result column="MENU_PARAM" property="menuParam"/>
+<result column="USER_SE" property="userSe"/>
+<result column="GROUP_ID" property="gourpId"/>
+</resultMap>
+<select id="menuManageDAO.selectMenuHeadByVO" parameterClass="egovframework.pra.cmm.service.MenuManageVO" resultMap="headMenu">
+SELECT * from PRAMAINMENUINDEX where 
+USER_SE = #tmp_UserSe#
+	<isNotEqual prepend="AND" property="tmp_UserSe" compareValue="anonym">
+GROUP_ID = 	(select group_id from COMTNGNRLMBER where MBER_ID = #tmp_Id#)
+	</isNotEqual>
+
+</select>
+<select id="menuManageDAO.selectMenuHeadByNo" resultClass="egovframework.pra.cmm.service.HeadMenuVO">
+SELECT * from PRAMAINMENUINDEX where 
+MENU_NO = #menuNo#
+	
+
+</select>
+</sqlMap>
